@@ -1,4 +1,8 @@
+library(ggplot2)
+
+#-----------------------------------------------------------------------------
 # Constructor for new toy model object.
+#-----------------------------------------------------------------------------
 # Models the following specification for a data generation process:
 #   - X ~ U(0, 2*pi)
 #   - Y = sin(X) + N(0, y_std)
@@ -14,7 +18,7 @@
 #       polynomial basis with the Y vector.
 #   - lm: A polynomial regression fit using the polynomial basis stored
 #         in poly, and the response stored in Y.
-make_model_object <- function(n_train_samples=10, y_std=.1, x_degree=1) {
+make_sinmodel <- function(n_train_samples=10, y_std=.3, x_degree=1) {
   new_model_obj = list()
   new_model_obj$class <- "sinmodel"
 
@@ -31,7 +35,7 @@ make_model_object <- function(n_train_samples=10, y_std=.1, x_degree=1) {
 }
 
 # Make a model data frame from a sinmodel object
-# Has two models, depending on whether newdata is or is not supplied.
+# Has two modes, depending on whether newdata is or is not supplied.
 model_data_frame <- function(sinmodel, newdata=NULL) {
   if(is.null(newdata)) {
     newdata <- data.frame(sinmodel$poly)
@@ -41,6 +45,19 @@ model_data_frame <- function(sinmodel, newdata=NULL) {
     newdata$Y <- NA
   }
   newdata
+}
+
+# Make a scatter plot of the underlying training data
+train_data_scatter <- function(sinmodel, alpha=.5) {
+  plot_data <- data.frame(X=sinmodel$X, Y=sinmodel$Y)
+  geom_point(data=plot_data, aes(x=X, y=Y), alpha=alpha)
+}
+
+# Plot the underlying sinusoidal signal
+signal_plot <- function(alpha=.5, color="blue") {
+  X <- .linspace_X()
+  plot_data <- data.frame(X=X, Y=sin(X))
+  geom_line(data=plot_data, aes(x=X, y=Y), alpha=alpha, color=color)
 }
 
 
