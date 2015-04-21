@@ -18,14 +18,23 @@ library(ggplot2)
 #       polynomial basis with the Y vector.
 #   - lm: A polynomial regression fit using the polynomial basis stored
 #         in poly, and the response stored in Y.
-make_sinmodel <- function(n_train_samples=10, y_std=.3, x_degree=1) {
+make_sinmodel <- function(obj=NULL, n_train_samples=10, y_std=.3, x_degree=1) {
   new_model_obj <- structure(list(), class="sinmodel")
-  XY <- .sample_XY(n_samples=n_train_samples, y_std=y_std)
-  new_model_obj$X <- XY$X
-  new_model_obj$Y <- XY$Y
+
+  if(is.null(obj)) {
+    XY <- .sample_XY(n_samples=n_train_samples, y_std=y_std)
+    new_model_obj$X <- XY$X
+    new_model_obj$Y <- XY$Y
+  } else {
+    if(class(obj) != "sinmodel") stop("Only sinmodel's may be used as obj.")
+    new_model_obj$X <- obj$X
+    new_model_obj$Y <- obj$Y
+  }
+
   new_model_obj$poly <- poly(x=new_model_obj$X, degree=x_degree)
   new_model_obj$train_data_frame <- .sinmodel_data_frame(new_model_obj)
   new_model_obj$lm <- lm(Y ~ . - Y, new_model_obj$train_data_frame)
+
   new_model_obj
 }
 
