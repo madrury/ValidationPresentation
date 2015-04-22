@@ -1,0 +1,39 @@
+\documentclass{beamer}
+\mode<presentation>{}
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\graphicspath{ {/Users/matthewdrury/Presentations/model_validation/plots} }
+
+\AtBeginSection[]{
+  \begin{frame}
+  \vfill
+  \centering
+  \begin{beamercolorbox}[sep=8pt,center,shadow=true,rounded=true]{title}
+    \usebeamerfont{title}\insertsectionhead\par%
+  \end{beamercolorbox}
+  \vfill
+  \end{frame}
+}
+
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\bias}{bias}
+\DeclareMathOperator*{\var}{var}
+\DeclareMathOperator*{\F}{\mathcal{F}}
+\DeclareMathOperator*{\D}{\mathcal{D}}
+\DeclareMathOperator*{\ESE}{\mathbf{ESE}}
+
+
+\title{Statistical Decision Theory and Model Validation}
+\author{Matthew Drury}
+
+\begin{document}
+%
+\begin{frame}
+  \titlepage
+\end{frame}
+%
+\include{section_framework} % Smoothing One Dimensional Data
+
+%
+\end{document}
