@@ -72,6 +72,19 @@ fitted_plot <- function(sinmodel, alpha=1, color="black") {
   geom_line(data=plot_data, aes(x=X, y=Y), alpha=alpha, color=color)
 }
 
+true_linear_fit_plot <- function(alpha=1, color="black") {
+  linspace <- .linspace_X()
+  preds <- .true_linear_fit(linspace)
+  plot_data <- data.frame(X=linspace, Y=preds)
+  geom_line(data=plot_data, aes(x=X, y=Y), alpha=alpha, color=color)
+}
+
+true_cubic_fit_plot <- function(alpha=1, color="black") {
+  linspace <- .linspace_X()
+  preds <- .true_cubic_fit(linspace)
+  plot_data <- data.frame(X=linspace, Y=preds)
+  geom_line(data=plot_data, aes(x=X, y=Y), alpha=alpha, color=color)
+}
 
 # Private helper functions
 #-----------------------------------------------------------------------------
@@ -119,4 +132,9 @@ fitted_plot <- function(sinmodel, alpha=1, color="black") {
 # Coefficents from a numerical optimization using scipy.
 .true_linear_fit <- function(x) {
   -0.30396357*x +  0.95492969
+}
+
+# Coefficients from numerical optimization using scipy.
+.true_cubic_fit <- function(x) {
+  0.09338797*x*x*x - 0.88016132*x*x + 1.90812499*x - 0.20331942
 }
