@@ -115,3 +115,8 @@ fitted_plot <- function(sinmodel, alpha=1, color="black") {
 .linspace_X <- function() {
   seq(from=0, to=2*pi, length.out=100)
 }
+
+# Coefficents from a numerical optimization using scipy.
+.true_linear_fit <- function(x) {
+  -0.30396357*x +  0.95492969
+}
