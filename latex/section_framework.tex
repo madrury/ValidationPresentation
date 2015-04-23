@@ -57,19 +57,19 @@
     \ESE(f; x)& = E_Y \left[ \left( y - \textcolor<8>{blue}{f(x)} \right)^2 \mid x \right] \\
     %Squaring
     \onslide<2->{
-      & = E_Y \left[ \left( y - \textcolor<2>{red}{E[y \mid x] + E[y \mid x]} 
+      & = E_Y \left[ \left( y - \textcolor<2>{orange}{E[y \mid x] + E[y \mid x]} 
           - f(x) \right)^2 \mid x \right] \\
     }
     % Outside terms
     \onslide<3->{
-      & = E_y \left[ \left( y - E[y \mid x] \right)^2 \mid x \right] 
-          + E_y \left[ \left(E[y \mid x] - f(x) \right)^2 \mid x \right] \\
+      & = E_Y \left[ \left( y - E[y \mid x] \right)^2 \mid x \right] 
+          + E_Y \left[ \left(E[y \mid x] - f(x) \right)^2 \mid x \right] \\
     }
       % Inside sqare term
       \only<3-5> {
-      & \quad + 2 E_y \left[ 
-          \textcolor<5>{red}{ \left( y - E[y \mid x] \right) } 
-          \textcolor<4>{red}{ \left( E[y \mid x] - f(x) \right) } 
+      & \quad + 2 E_Y \left[ 
+          \textcolor<5>{orange}{ \left( y - E[y \mid x] \right) } 
+          \textcolor<4>{orange}{ \left( E[y \mid x] - f(x) \right) } 
         \mid x \right] \\
       }
     % Discarding the positive term...
@@ -83,6 +83,7 @@
   \only<3>{Square.}
   \only<4>{This factor has no dependence on y, so it is a constant from the view of the outside expectation.}
   \only<5>{This factor is zero in expecatation, so the cross term is zero.}
+  \only<6>{Goodbye!}
   \only<7>{Discarding a positive term.}
   \only<8>{The regression function $E[Y|X]$ is the minimizer.}
 

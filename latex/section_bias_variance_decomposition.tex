@@ -28,8 +28,10 @@
 %
 \begin{frame}
 
-  Recall our decomposition of the expected squared error from the previous
-  section:
+  \only<1>{
+    Recall our decomposition of the expected squared error from the previous
+    section:
+  }
 
   % Decomposition of expected squared error into irreducible and modelable
   % error.
@@ -38,8 +40,10 @@
       & = \textcolor<2>{orange}{
         E_Y \left[ \left( y - \F(x) \right)^2 \mid x \right]
       } 
-      + \textcolor<3>{orange}{
-        E_Y \left[ \left( \F(x) - f(x) \right)^2 \mid x \right]
+      + \textcolor<3-4>{orange}{
+          \only<1-3>{ E_Y \left[ }
+            \left( \F(x) - f(x) \right)^2
+          \only<1-3>{ \mid x \right] }
       }
   \end{align*}
 
@@ -49,7 +53,10 @@
     error}
   }
   \only<3>{
-    This term can be reduced by choosing $f$ well.  It is the goal of the
+    This term does not depend on $Y$, and so the expectation can be discarded. 
+  }
+  \only<4>{
+    We can reduce this term by choosing $f$ well, and it is the goal of the
     learning algorithm to make this term as small as possible.  We call it the
     \textbf{reducible error}.
   }
@@ -59,7 +66,7 @@
 %
 \begin{frame}
   $$ \IESE(f; x) = E_Y \left[ \left( y - \F(x) \right)^2 \mid x \right] $$
-  $$ \RESE(f; x) = E_Y \left[ \left( \F(x) - f(x) \right)^2 \mid x \right] $$
+  $$ \RESE(f; x) = \left( \F(x) - f(x) \right)^2 $$
 \end{frame}
 %
 %
@@ -108,25 +115,25 @@
 \begin{frame}
   \begin{align*}
     \RESE & (f; x) \\
-    &= E_{Y,\D} \left[ \left( \F(x) - f(x,\D) \right)^2 \mid x \right]
+    &= E_{D} \left[ \left( \F(x) - f(x,\D) \right)^2 \mid x \right]
     \\
     %Squaring
     \onslide<2->{
-      & = E_{Y,\D} \left[ \left( \F(x) - \textcolor<2>{orange}{Ef(x) + Ef(x)} 
-          - f(x,\D) \right)^2 \mid x \right] \\
+      & = E_{\D} \left[ \left( \F(x) - \textcolor<2>{orange}{Ef(x) + Ef(x)} 
+          - f(\D) \right)^2 \mid x \right] \\
     }
     % Outside terms
     \onslide<3->{
       & = \textcolor<6>{orange}{
-             \only<3-6>{ E_{y,\D} \left[ } 
+             \only<3-6>{ E_{\D} \left[ } 
                \left( \F(x) - Ef(x) \right)^2 
              \only<3-6>{ \mid x \right] }
            }
-           + E_{y,\D} \left[ \left(Ef(x) - f(x,\D) \right)^2 \mid x \right] \\
+           + E_{\D} \left[ \left(Ef(x) - f(x,\D) \right)^2 \mid x \right] \\
     }
       % Inside sqare term
       \only<3-5> {
-      & \quad + 2 E_{y,\D} \left[ 
+      & \quad + 2 E_{\D} \left[ 
           \textcolor<4>{orange}{ \left( \F(x) - Ef(x) \right) } 
           \textcolor<5>{orange}{ \left( Ef(x) - f(x,\D) \right) } 
         \mid x \right] \\
@@ -135,12 +142,12 @@
 
   \only<2>{Add zero.}
   \only<3>{Square.}
-  \only<4>{This factor has no dependence on y or $\D$, so it is a constant from
+  \only<4>{This factor has no dependence on $\D$, so it is a constant from
   the view of the enclosing expectation.}
   \only<5>{This factor is zero in expecatation, so the cross term is zero.}
-  \only<6>{This term has no dependence on y or $\D$, so we can remove the
+  \only<6>{This term has no dependence on $\D$, so we can remove the
   expectation.}
-  \only<7>{This is the bias-variance decomposition.}
+  \only<7>{This is the \textbf{bias-variance decomposition.}}
 
 \end{frame}
 %
@@ -153,7 +160,7 @@
           }
           + 
           \textcolor<2>{orange}{
-            E_{y,\D} \left[ \left( Ef(x) - f(x,\D) \right)^2 \mid x \right]
+            E_{\D} \left[ \left( Ef(x) - f(x,\D) \right)^2 \mid x \right]
           }
   \end{align*}
 %
@@ -166,4 +173,52 @@
     alogrithm's results around its average result.
   }
 \end{frame}
+%
+%
+\begin{frame}
+  \begin{align*}
+    \BIAS (x)^2 = \left( \F(x) - Ef(x) \right)^2
+  \end{align*}
 
+  The model bias tends to be decrease as the learning algorithm becomes more complex,
+  and increase as it becomes more rigid. 
+\end{frame}
+%
+%
+\begin{frame}
+  \begin{align*}
+    \VAR(x) = E_{\D} \left[ \left( Ef(x) - f(x,\D) \right)^2 \mid x \right]
+  \end{align*}
+
+  The model variance tends to increase as the learning algorithm becomes more
+  complex, and decrease as it becomes more rigid.
+\end{frame}
+%
+%
+\begin{frame}
+  It is possible to make the phrases ``learning algorithm becomes more/less complex''
+  precise, but it is not easy, and it will have to wait for another talk.
+\end{frame}
+%
+%
+\begin{frame}
+  Here is our final decomposition of the expected squared error into various
+  sources of error:
+
+  \begin{align*}
+    \ESE & (f; x) \\
+    &= \color{blue}{ 
+         E_Y \left[ \left( y - E_Y[y \mid x] \right)^2 \mid x \right] } \\
+       & \quad + \color{red}{
+         \left( E_Y[y \mid x] -  E_{\D} \left[ f(x, \D) \mid x \right] \right)^2
+       } \\
+       & \quad + \color{green}{
+         E_{\D} \left[ \left( E_{\D} \left[ f(x, \D) \mid x \right] - 
+         f(x,\D) \right)^2 \mid x \right]
+       }
+  \end{align*}
+  \begin{center}
+    \color{blue}{Irreducible Error} - \color{red}{Model Bias} - \color{green}{Model
+    Variance}
+  \end{center}
+\end{frame}
