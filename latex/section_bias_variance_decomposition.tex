@@ -1,0 +1,169 @@
+\section{The Bias-Variance Decomposition}
+%
+%
+\begin{frame}
+  Although we never have full knowledge about $X, Y$, we often do have smaple
+  data drawn from this distribution:
+
+  $$ \D = \left\{ (x_i, y_i) \mid x_i, y_i ~ X, Y \right\} $$
+\end{frame}
+%
+%
+\begin{frame}
+  Approximating $\F$ often takes the form of a \textbf{learning algorithm}:
+
+  $$ \A : \D \mapsto f $$
+
+  which, given a sample dataset $\D$, produces a function $f$ that approximates
+  $\F$.
+\end{frame}
+%
+%
+\begin{frame}
+  A learning algorithms induces an extremely enlightening decomposition of the
+  expected squared error, This is called the \textbf{bias-variance}
+  decomposition.
+\end{frame}
+%
+%
+\begin{frame}
+
+  Recall our decomposition of the expected squared error from the previous
+  section:
+
+  % Decomposition of expected squared error into irreducible and modelable
+  % error.
+  \begin{align*}
+    \ESE(f; x) & = E_Y \left[ \left( y - f(x) \right)^2 \mid x \right] \\
+      & = \textcolor<2>{orange}{
+        E_Y \left[ \left( y - \F(x) \right)^2 \mid x \right]
+      } 
+      + \textcolor<3>{orange}{
+        E_Y \left[ \left( \F(x) - f(x) \right)^2 \mid x \right]
+      }
+  \end{align*}
+
+  \only<2>{
+    This term cannot be reduced by a learning algorithm, it measures the
+    variance of $Y$ about its mean.  This is called the \textbf{irreducible
+    error}
+  }
+  \only<3>{
+    This term can be reduced by choosing $f$ well.  It is the goal of the
+    learning algorithm to make this term as small as possible.  We call it the
+    \textbf{reducible error}.
+  }
+
+\end{frame}
+%
+%
+\begin{frame}
+  $$ \IESE(f; x) = E_Y \left[ \left( y - \F(x) \right)^2 \mid x \right] $$
+  $$ \RESE(f; x) = E_Y \left[ \left( \F(x) - f(x) \right)^2 \mid x \right] $$
+\end{frame}
+%
+%
+\begin{frame}
+  The second term in the previous equation can be further decomposed, but to do
+  so we will have to introduce a new concept.  
+\end{frame}
+%
+%
+\begin{frame}
+  Recall that $f$ depends on the data set $\D$ through our learning algorithm:
+
+  $$ \A : \D \mapsto f $$
+
+  We can make this dependence explicit by writing $f(x; \D)$.
+\end{frame}
+%
+%
+\begin{frame}
+  The datasets $\D$ (of a fixed size) can be thought of as being drawn from
+  thier own distribution, the \textbf{sampling distribution} of $X$.   
+\end{frame}
+%
+%
+\begin{frame}
+  We would like to study how the expected error of our predictions depends on
+  the randomness in $\D$:
+
+  $$ \ESE(f; x) = E_{Y,\D} \left[ \left( y - f(x; \D) \right)^2 \mid x \right]
+  $$
+
+  Note that the previous decomposition into irreducible and reducible error
+  still holds for this expectation, as our calculations made no assumptions
+  about $f$.
+\end{frame}
+%
+%
+\begin{frame}
+  To break down the reducible error, we introduce the expectation of $f$ with
+  respect to the data $\D$:
+
+  $$ Ef(x) = E_{\D} \left[ f(x, \D) \mid x \right] $$
+\end{frame}
+%
+%
+\begin{frame}
+  \begin{align*}
+    \RESE & (f; x) \\
+    &= E_{Y,\D} \left[ \left( \F(x) - f(x,\D) \right)^2 \mid x \right]
+    \\
+    %Squaring
+    \onslide<2->{
+      & = E_{Y,\D} \left[ \left( \F(x) - \textcolor<2>{orange}{Ef(x) + Ef(x)} 
+          - f(x,\D) \right)^2 \mid x \right] \\
+    }
+    % Outside terms
+    \onslide<3->{
+      & = \textcolor<6>{orange}{
+             \only<3-6>{ E_{y,\D} \left[ } 
+               \left( \F(x) - Ef(x) \right)^2 
+             \only<3-6>{ \mid x \right] }
+           }
+           + E_{y,\D} \left[ \left(Ef(x) - f(x,\D) \right)^2 \mid x \right] \\
+    }
+      % Inside sqare term
+      \only<3-5> {
+      & \quad + 2 E_{y,\D} \left[ 
+          \textcolor<4>{orange}{ \left( \F(x) - Ef(x) \right) } 
+          \textcolor<5>{orange}{ \left( Ef(x) - f(x,\D) \right) } 
+        \mid x \right] \\
+      }
+  \end{align*}
+
+  \only<2>{Add zero.}
+  \only<3>{Square.}
+  \only<4>{This factor has no dependence on y or $\D$, so it is a constant from
+  the view of the enclosing expectation.}
+  \only<5>{This factor is zero in expecatation, so the cross term is zero.}
+  \only<6>{This term has no dependence on y or $\D$, so we can remove the
+  expectation.}
+  \only<7>{This is the bias-variance decomposition.}
+
+\end{frame}
+%
+%
+\begin{frame}
+  \begin{align*}
+    \RESE & (f; x) \\
+      & = \textcolor<1>{orange}{
+            \left( \F(x) - Ef(x) \right)^2
+          }
+          + 
+          \textcolor<2>{orange}{
+            E_{y,\D} \left[ \left( Ef(x) - f(x,\D) \right)^2 \mid x \right]
+          }
+  \end{align*}
+%
+  \only<1>{
+    This is the \textbf{model (squared) bias}, which measures the deviation of
+    the algorithm's average result approximation from the ground truth.
+  }
+  \only<2>{
+    This is the \textbf{model variance}, which measures the variance of the
+    alogrithm's results around its average result.
+  }
+\end{frame}
+
