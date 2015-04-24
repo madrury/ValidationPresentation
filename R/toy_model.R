@@ -24,6 +24,9 @@ make_sinmodel <- function(
   ) {
 
   new_model_obj <- structure(list(), class="sinmodel")
+  new_model_obj$n_train_samples <- n_train_samples
+  new_model_obj$y_std <- y_std
+  new_model_obj$degree <- degree
 
   if(is.null(obj)) {
     XY <- .sample_XY(n_samples=n_train_samples, y_std=y_std)
@@ -69,7 +72,7 @@ train_data_scatter <- function(sinmodel, alpha=.5) {
 }
 
 # Plot the underlying sinusoidal signal
-signal_plot <- function(alpha=.5, color="grey") {
+signal_plot <- function(alpha=.75, color="grey") {
   X <- .linspace_X()
   plot_data <- data.frame(X=X, Y=sin(X))
   geom_line(data=plot_data, aes(x=X, y=Y), alpha=alpha, color=color, size=2)
