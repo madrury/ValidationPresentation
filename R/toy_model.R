@@ -1,4 +1,5 @@
 library(ggplot2)
+library(ridge)
 
 #-----------------------------------------------------------------------------
 # Constructor for new toy model object.
@@ -12,13 +13,16 @@ library(ggplot2)
 #   - X: Sampled vector of X's for training data.
 #   - Y: Sampled vector of Y's for training data.
 #   - poly: poly object generated using R's builtin poly object (orthogonal
-#       mode).  x_degree determines the degree of polynomial basis to
+#       mode).  degree determines the degree of polynomial basis to
 #       create.
 #   - train_data_frame: A training data frame created by combining the
 #       polynomial basis with the Y vector.
 #   - lm: A polynomial regression fit using the polynomial basis stored
 #         in poly, and the response stored in Y.
-make_sinmodel <- function(obj=NULL, n_train_samples=10, y_std=.3, x_degree=1) {
+make_sinmodel <- function(
+    obj=NULL, n_train_samples=10, y_std=.5, degree=1, ridge=FALSE, lambda=NULL
+  ) {
+
   new_model_obj <- structure(list(), class="sinmodel")
 
   if(is.null(obj)) {
@@ -31,9 +35,16 @@ make_sinmodel <- function(obj=NULL, n_train_samples=10, y_std=.3, x_degree=1) {
     new_model_obj$Y <- obj$Y
   }
 
-  new_model_obj$poly <- poly(x=new_model_obj$X, degree=x_degree)
+  new_model_obj$poly <- poly(x=new_model_obj$X, degree=degree)
   new_model_obj$train_data_frame <- .sinmodel_data_frame(new_model_obj)
-  new_model_obj$lm <- lm(Y ~ . - Y, new_model_obj$train_data_frame)
+
+  if(ridge) {
+    new_model_obj$lm <- linearRidge(
+      Y ~ . - Y, new_model_obj$train_data_frame, lambda=lambda
+    )
+  } else {
+    new_model_obj$lm <- lm(Y ~ . - Y, new_model_obj$train_data_frame)
+  }
 
   new_model_obj
 }
@@ -58,10 +69,10 @@ train_data_scatter <- function(sinmodel, alpha=.5) {
 }
 
 # Plot the underlying sinusoidal signal
-signal_plot <- function(alpha=.5, color="blue") {
+signal_plot <- function(alpha=.5, color="grey") {
   X <- .linspace_X()
   plot_data <- data.frame(X=X, Y=sin(X))
-  geom_line(data=plot_data, aes(x=X, y=Y), alpha=alpha, color=color)
+  geom_line(data=plot_data, aes(x=X, y=Y), alpha=alpha, color=color, size=2)
 }
 
 # Make a plot of the fitted model on a set of equally spaced points
