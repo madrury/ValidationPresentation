@@ -3,7 +3,7 @@
 
 \usepackage{amsmath}
 \usepackage{graphicx}
-\graphicspath{ {/Users/matthewdrury/Presentations/model_validation/plots} }
+\graphicspath{ {/Users/matthewdrury/Presentations/model_validation/plots/} }
 
 \AtBeginSection[]{
   \begin{frame}
@@ -26,7 +26,7 @@
 \DeclareMathOperator*{\RESE}{\mathbf{RESE}}
 \DeclareMathOperator*{\BIAS}{\mathbf{BIAS}}
 \DeclareMathOperator*{\VAR}{\mathbf{VAR}}
-
+\DeclareMathOperator*{\LinReg}{\text{LinReg}}	
 
 \title{Statistical Decision Theory and Model Validation}
 \author{Matthew Drury}
@@ -37,7 +37,8 @@
   \titlepage
 \end{frame}
 %
-\include{section_framework} % A Framework for Statistical Learning
+%\include{section_framework} % A Framework for Statistical Learning
 \include{section_bias_variance_decomposition} % The Bias-Variance Decomposition
+\include{section_toy_model} % A Toy Model
 %
 \end{document}
