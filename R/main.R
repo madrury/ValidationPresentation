@@ -1,8 +1,11 @@
 # Make plots for presentation
 
-setwd("/Users/matthewdrury/Presentation/model_validation")
+setwd("/Users/matthewdrury/Presentations/model_validation")
 setwd("./R")
 source("toy_model.R")
+source("meta_models.R")
+source("plotting_functions.R")
+
 setwd("..")
 dir.create("./plots")
 setwd("./plots")
