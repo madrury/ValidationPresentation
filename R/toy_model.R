@@ -20,7 +20,7 @@ library(ridge)
 #   - lm: A polynomial regression fit using the polynomial basis stored
 #         in poly, and the response stored in Y.
 make_sinmodel <- function(
-    obj=NULL, n_train_samples=10, y_std=.5, degree=1, ridge=FALSE, lambda=NULL
+    obj=NULL, n_train_samples=10, y_std=.75, degree=1, ridge=FALSE, lambda=NULL
   ) {
 
   new_model_obj <- structure(list(), class="sinmodel")
@@ -86,19 +86,48 @@ fitted_plot <- function(sinmodel, alpha=1, color="black") {
   geom_line(data=plot_data, aes(x=X, y=Y), alpha=alpha, color=color)
 }
 
-true_linear_fit_plot <- function(alpha=1, color="black") {
+true_linear_fit_plot <- function(alpha=.5, color="blue") {
   linspace <- .linspace_X()
   preds <- .true_linear_fit(linspace)
   plot_data <- data.frame(X=linspace, Y=preds)
-  geom_line(data=plot_data, aes(x=X, y=Y), alpha=alpha, color=color)
+  geom_line(data=plot_data, aes(x=X, y=Y), alpha=alpha, color=color, size=2)
+}
+
+area_between_true_and_linear_fit <- function(alpha=.1, color="grey") {
+  linspace <- .linspace_X()
+  plot_data <- data.frame(X=linspace, Ym=sin(linspace), YM=.true_linear_fit(linspace))
+  geom_ribbon(data=plot_data, aes(x=X, ymin=Ym, ymax=YM), alpha=alpha, color=color)
 }
 
 true_cubic_fit_plot <- function(alpha=1, color="black") {
   linspace <- .linspace_X()
   preds <- .true_cubic_fit(linspace)
   plot_data <- data.frame(X=linspace, Y=preds)
-  geom_line(data=plot_data, aes(x=X, y=Y), alpha=alpha, color=color)
+  geom_line(data=plot_data, aes(x=X, y=Y), alpha=alpha, color=color, size=2)
 }
+
+area_between_true_and_cubic_fit <- function(alpha=.1, color="grey") {
+  linspace <- .linspace_X()
+  plot_data <- data.frame(X=linspace, Ym=sin(linspace), YM=.true_cubic_fit(linspace))
+  geom_ribbon(data=plot_data, aes(x=X, ymin=Ym, ymax=YM), alpha=alpha, color=color)
+}
+
+# Numeric calculations
+#-----------------------------------------------------------------------------
+calc_total_bias <- function() {
+  integrand <- function(x) {
+    (.true_linear_fit(x) - sin(x))**2
+  }
+  integrate(integrand, lower=0, upper=2*pi)
+}
+
+calc_total_bias_cubic <- function() {
+  integrand <- function(x) {
+    (.true_cubic_fit(x) - sin(x))**2
+  }
+  integrate(integrand, lower=0, upper=2*pi)
+}
+
 
 # Private helper functions
 #-----------------------------------------------------------------------------
