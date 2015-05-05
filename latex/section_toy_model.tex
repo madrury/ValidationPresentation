@@ -48,9 +48,7 @@
 %
 \begin{frame}
   We take as our learning algorithm \textbf{linear regression}:
-
   $$ \LinReg: \D \mapsto \LinReg({\D}_{X}, {\D}_{Y}) $$
-
   \begin{figure}
     \includegraphics[scale=0.09]{single_fitted_line}
   \end{figure}
@@ -59,52 +57,64 @@
 %
 \begin{frame}
   Let's study the bias of our toy model.  Recall the definition:
-
   \begin{align*}
     \BIAS (x)^2 = \left( \F(x) - Ef(x) \right)^2
   \end{align*}
-
   Where:
-
   \begin{align*}
-    Ef(x) = E_{\D} \left[ \A(D) \right] \\ 
+    Ef(x) = E_D \left[ f(x; \D) \mid x \right] \\ 
   \end{align*}
-
-  Clearly, we need some way of determining $Ef$.
+  is the expected output of our modeling algorithm.
 \end{frame}
 %
 %
 \begin{frame}
-  The only place to start is to unwind the definition.  The expectation is over
-  the sampling distribution of $X, Y$.  We can think of sampling from this as a
-  two step process:
-
-  \begin{itemize}
-    \item First take $N$ independent samples from $X \sim U(0, 2 \pi)$
-    \item Given these samples $x_1, x_2, \ldots, x_N$, sample a value of $Y$
-    from $Y \sim N(\sin(x_i), \epsilon)$, for each $x_i$
-  \end{itemize}
+  For our toy situation we can calculate $Ef$ numerically (I used scipy):
+  $$ Ef(x) \approx -0.304 x +  0.955 $$
+  The details of this computation are included in an appendix.
 \end{frame}
 %
 %
 \begin{frame}
-  \color{red}{\textbf{Warning}}: This is the most difficuly, mindbending
-  mathematics in the talk.  Feel free to get coffee..
+  \begin{figure}
+    \includegraphics[scale=0.12]{best_linear_fit}
+  \end{figure}
 \end{frame}
 %
 %
 \begin{frame}
-  \begin{align*}
-    E_{\D} & \left[ \A(D) \right] \\
-    %
-    =& \int_{S\D} \LinReg(\D) d\D \\
-    %
-    =& \int_{S(X,Y)} \LinReg(X, Y) dY dX \\
-    %
-    =& \int_{S(X,Y)} \argmin_{a,b} \left\{ \sum_i \left( Y_i - a X_i - b
-    \right)^2 \right\} dY dX
-    %
-    =& \int_{S(X,Y)} \argmin_{a,b} \left\{ \sum_i \left( Y_i - a X_i - b
-    \right)^2 \right\} dY dX
-  \end{align*}
+  The bias at a point is the square of the vertical distance between the true
+  signal and the best linear fit.
+  \begin{figure}
+    \includegraphics[scale=0.08]{best_linear_fit}
+  \end{figure}
+\end{frame}
+%
+%
+\begin{frame}
+  The total bias is the expectation of the pointwise bias.  Visually, we can
+  think of the unsigned area between the best linear fit and the true signal:
+  \begin{figure}
+    \includegraphics[scale=0.08]{model_bias}
+  \end{figure}
+\end{frame}
+%
+%
+\begin{frame}
+  The total bias can be explicitly calculated in this case (I used a numerical
+  integration routine):
+  $$ \BIAS^2 = E_X \left[ \left( \F(x) - Ef(x) \right)^2 \right] \approx 1.23
+  $$
+\end{frame}
+%
+%
+\begin{frame}
+  Bias can be lowered by making our learnign algoritm more complex.  For
+  example, fitting a \textit{cubic} regression lowers the bias of our model
+  considerably:
+  \begin{figure}
+    \includegraphics[scale=0.08]{cubic_model_bias}
+  \end{figure}
+  $$ \BIAS^2 = E_X \left[ \left( \F(x) - Ef(x) \right)^2 \right] \approx 0.028
+  $$
 \end{frame}

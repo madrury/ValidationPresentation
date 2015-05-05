@@ -65,7 +65,7 @@
 %
 %
 \begin{frame}
-  $$ \IESE(f; x) = E_Y \left[ \left( y - \F(x) \right)^2 \mid x \right] $$
+  $$ \IESE(x) = E_Y \left[ \left( y - \F(x) \right)^2 \mid x \right] $$
   $$ \RESE(f; x) = \left( \F(x) - f(x) \right)^2 $$
 \end{frame}
 %
@@ -221,4 +221,20 @@
     \color{blue}{Irreducible Error} - \color{red}{Model Bias} - \color{green}{Model
     Variance}
   \end{center}
+\end{frame}
+%
+%
+\begin{frame}
+  So far, we have concentrated on the \textbf{pointwise} error rates $\ESE(x)$.
+  Often time, we concern ourselves with the \textbf{overal} error rates, which
+  are found by taking the expectation with respect to $X$ as well:
+
+  \begin{align*}
+    \ESE(f) & = E_{X,Y} \left[ \left( y - f(x) \right)^2 \right] \\
+    &= E_X E_{Y \mid X} \left[ \left( y - f(x) \right)^2 \mid X \right]
+  \end{align*}
+
+  Discussions of this nature can often become confusing if you do not keep in
+  mind whether the \textbf{overall} of \textbf{pointwise} error is being
+  considerd.  We will try to be explicit.
 \end{frame}
