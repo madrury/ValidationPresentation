@@ -29,7 +29,6 @@ ggsave("best_linear_fit.png")
 p <- plot_many_sinmodels(smm)
 ggsave("model_variance.png")
 
-
 # A plot of the true signal, along with a sample from X, Y
 p <- ggplot() + train_data_scatter(sm) + signal_plot()
 ggsave("true_signal.png", p)
@@ -37,3 +36,33 @@ ggsave("true_signal.png", p)
 # True signal and sample, along with the resulting linear regression
 p <- p + fitted_plot(sm)
 ggsave("single_fitted_line.png", p)
+
+# Increasing the number of samples
+sm <- make_sinmodel(degree=1, n_train_sample=50)
+smm <- fit_many_sinmodels(sm, n_to_fit=100)
+p <- plot_many_sinmodels(smm) + train_data_scatter(sm, alpha=.25)
+ggsave("model_variance_standard_samples.png")
+
+# Increasing the number of samples
+sm <- make_sinmodel(degree=1, n_train_sample=200)
+smm <- fit_many_sinmodels(sm, n_to_fit=100)
+p <- plot_many_sinmodels(smm) + train_data_scatter(sm, alpha=.25)
+ggsave("model_variance_more_samples.png")
+
+# Decreasing the number of samples
+sm <- make_sinmodel(degree=1, n_train_sample=10)
+smm <- fit_many_sinmodels(sm, n_to_fit=100)
+p <- plot_many_sinmodels(smm) + train_data_scatter(sm, alpha=.25)
+ggsave("model_variance_less_samples.png", p)
+
+# Increasing the irreducible error
+sm <- make_sinmodel(degree=1, y_std=1.5, n_train_sample=50)
+smm <- fit_many_sinmodels(sm, n_to_fit=100)
+p <- plot_many_sinmodels(smm) + train_data_scatter(sm, alpha=.25)
+ggsave("model_variance_more_error.png")
+
+# Decreasing the irreducible error
+sm <- make_sinmodel(degree=1, y_std=.2, n_train_sample=50)
+smm <- fit_many_sinmodels(sm, n_to_fit=100)
+p <- plot_many_sinmodels(smm) + train_data_scatter(sm, alpha=.25)
+ggsave("model_variance_less_error.png")
