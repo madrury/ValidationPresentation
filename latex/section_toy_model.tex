@@ -103,18 +103,66 @@
 \begin{frame}
   The total bias can be explicitly calculated in this case (I used a numerical
   integration routine):
-  $$ \BIAS^2 = E_X \left[ \left( \F(x) - Ef(x) \right)^2 \right] \approx 1.23
+  $$ {\BIAS}^2 = E_X \left[ \left( \F(x) - Ef(x) \right)^2 \right] \approx 1.23
   $$
 \end{frame}
 %
 %
 \begin{frame}
-  Bias can be lowered by making our learnign algoritm more complex.  For
+  Bias can be lowered by making our learning algorithm more complex.  For
   example, fitting a \textit{cubic} regression lowers the bias of our model
   considerably:
   \begin{figure}
     \includegraphics[scale=0.08]{cubic_model_bias}
   \end{figure}
-  $$ \BIAS^2 = E_X \left[ \left( \F(x) - Ef(x) \right)^2 \right] \approx 0.028
+  $$ {\BIAS}^2 = E_X \left[ \left( \F(x) - Ef(x) \right)^2 \right] \approx 0.028
   $$
+\end{frame}
+%
+%
+\begin{frame}
+  It is tempting to want to lower the bias as much as possible, as this brings
+  our expected model close to reality, unfortunately, the model varaince is a
+  price we pay.
+\end{frame}
+%
+%
+\begin{frame}
+  The model variance measures how sensitive our estimate is to the specific
+  training data used:
+      $$ E_{\D} \left[ \left( Ef(x) - f(x,\D) \right)^2 \mid x \right] $$
+\end{frame}
+%
+%
+\begin{frame}
+   Lines fit to different data sampled from our model distribution tend to
+   cluser around the best linear fit, but there is a fair ammount of variance in
+   the clustering:
+  \begin{figure}
+    \includegraphics[scale=0.1]{model_variance_standard_samples}
+  \end{figure}
+\end{frame}
+%
+%
+\begin{frame}
+  Increasing the ammount of data used to fit reduces the varaince:
+  \begin{figure}
+    \includegraphics[scale=0.1]{model_variance_more_samples}
+  \end{figure}
+\end{frame}
+%
+%
+\begin{frame}
+  Decreasing the amount of data used to fit increases the variance:
+  \begin{figure}
+    \includegraphics[scale=0.1]{model_variance_less_samples}
+  \end{figure}
+\end{frame}
+%
+%
+\begin{frame}
+  Increasing the irreducible error rate also increases the model variance:
+  \begin{figure}
+    \includegraphics[scale=0.1]{model_variance_more_error}
+  \end{figure}
 \end{frame}
