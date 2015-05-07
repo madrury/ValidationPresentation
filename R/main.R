@@ -15,54 +15,57 @@ sm <- make_sinmodel(degree=1, n_train_sample=50)
 smm <- fit_many_sinmodels(sm, n_to_fit=100)
 
 p <- plot_irreducible_error()
-ggsave("irreducible_error.png", p)
+ggsave("irreducible_error.png", width=8, height=7.5, p)
 
 p <- ggplot() + area_between_true_and_linear_fit() + signal_plot() + true_linear_fit_plot()
-ggsave("model_bias.png")
+ggsave("model_bias.png", width=8, height=7.5, p)
 
 p <- ggplot() + area_between_true_and_cubic_fit() + signal_plot() + true_cubic_fit_plot()
-ggsave("cubic_model_bias.png")
+ggsave("cubic_model_bias.png", width=8, height=7.5, p)
 
 p <- ggplot() + signal_plot() + true_linear_fit_plot()
-ggsave("best_linear_fit.png")
+ggsave("best_linear_fit.png", width=8, height=7.5, p)
 
 p <- plot_many_sinmodels(smm)
-ggsave("model_variance.png")
+ggsave("model_variance.png", width=8, height=7.5, p)
 
 # A plot of the true signal, along with a sample from X, Y
 p <- ggplot() + train_data_scatter(sm) + signal_plot()
-ggsave("true_signal.png", p)
+ggsave("true_signal.png", width=8, height=7.5, p)
 
 # True signal and sample, along with the resulting linear regression
 p <- p + fitted_plot(sm)
-ggsave("single_fitted_line.png", p)
+ggsave("single_fitted_line.png", width=8, height=7.5, p)
+
+# Variance Plots
+#----------------------------------------------------------------------
+p <- plot_variance_of_degree()
+ggsave("model_variance_standard_samples.png", width=8, height=7.5, p)
 
 # Increasing the number of samples
-sm <- make_sinmodel(degree=1, n_train_sample=50)
-smm <- fit_many_sinmodels(sm, n_to_fit=100)
-p <- plot_many_sinmodels(smm) + train_data_scatter(sm, alpha=.25)
-ggsave("model_variance_standard_samples.png")
-
-# Increasing the number of samples
-sm <- make_sinmodel(degree=1, n_train_sample=200)
-smm <- fit_many_sinmodels(sm, n_to_fit=100)
-p <- plot_many_sinmodels(smm) + train_data_scatter(sm, alpha=.25)
-ggsave("model_variance_more_samples.png")
+p <- plot_variance_of_degree(n_train_sample = 200)
+ggsave("model_variance_more_samples.png", width=8, height=7.5, p)
 
 # Decreasing the number of samples
-sm <- make_sinmodel(degree=1, n_train_sample=10)
-smm <- fit_many_sinmodels(sm, n_to_fit=100)
-p <- plot_many_sinmodels(smm) + train_data_scatter(sm, alpha=.25)
-ggsave("model_variance_less_samples.png", p)
+p <- plot_variance_of_degree(n_train_sample = 10)
+ggsave("model_variance_less_samples.png", width=8, height=7.5, p)
 
 # Increasing the irreducible error
-sm <- make_sinmodel(degree=1, y_std=1.5, n_train_sample=50)
-smm <- fit_many_sinmodels(sm, n_to_fit=100)
-p <- plot_many_sinmodels(smm) + train_data_scatter(sm, alpha=.25)
-ggsave("model_variance_more_error.png")
+p <- plot_variance_of_degree(y_std=1.5)
+ggsave("model_variance_more_error.png", width=8, height=7.5, p)
 
 # Decreasing the irreducible error
-sm <- make_sinmodel(degree=1, y_std=.2, n_train_sample=50)
-smm <- fit_many_sinmodels(sm, n_to_fit=100)
-p <- plot_many_sinmodels(smm) + train_data_scatter(sm, alpha=.25)
-ggsave("model_variance_less_error.png")
+p <- plot_variance_of_degree(y_std=.2)
+ggsave("model_variance_less_error.png", width=8, height=7.5, p)
+
+# Variance of a cubic model
+p <- plot_variance_of_degree(d=3)
+ggsave("model_variance_cubic.png", width=8, height=7.5, p)
+
+# Variance of a quartic model
+p <- plot_variance_of_degree(d=5)
+ggsave("model_variance_quartic.png", width=8, height=7.5, p)
+
+# Variance of a septic
+p <- plot_variance_of_degree(d=7)
+ggsave("model_variance_septic.png", width=8, height=7.5, p)

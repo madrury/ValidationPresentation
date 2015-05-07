@@ -99,7 +99,7 @@ area_between_true_and_linear_fit <- function(alpha=.1, color="grey") {
   geom_ribbon(data=plot_data, aes(x=X, ymin=Ym, ymax=YM), alpha=alpha, color=color)
 }
 
-true_cubic_fit_plot <- function(alpha=1, color="black") {
+true_cubic_fit_plot <- function(alpha=1, color="blue") {
   linspace <- .linspace_X()
   preds <- .true_cubic_fit(linspace)
   plot_data <- data.frame(X=linspace, Y=preds)
