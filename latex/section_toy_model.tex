@@ -139,7 +139,7 @@
    cluser around the best linear fit, but there is a fair ammount of variance in
    the clustering:
   \begin{figure}
-    \includegraphics[scale=0.1]{model_variance_standard_samples}
+    \includegraphics[scale=0.09]{model_variance_standard_samples}
   \end{figure}
 \end{frame}
 %
@@ -147,7 +147,7 @@
 \begin{frame}
   Increasing the ammount of data used to fit reduces the varaince:
   \begin{figure}
-    \includegraphics[scale=0.1]{model_variance_more_samples}
+    \includegraphics[scale=0.09]{model_variance_more_samples}
   \end{figure}
 \end{frame}
 %
@@ -155,7 +155,7 @@
 \begin{frame}
   Decreasing the amount of data used to fit increases the variance:
   \begin{figure}
-    \includegraphics[scale=0.1]{model_variance_less_samples}
+    \includegraphics[scale=0.09]{model_variance_less_samples}
   \end{figure}
 \end{frame}
 %
@@ -163,6 +163,48 @@
 \begin{frame}
   Increasing the irreducible error rate also increases the model variance:
   \begin{figure}
-    \includegraphics[scale=0.1]{model_variance_more_error}
+    \includegraphics[scale=0.09]{model_variance_more_error}
   \end{figure}
+\end{frame}
+%
+%
+\begin{frame}
+  Increasing the complexity of the model also tends to increase the model
+  variance:
+  \begin{figure}
+      \includegraphics[scale=0.05]{model_variance}
+      \includegraphics[scale=0.05]{model_variance_cubic}
+  \end{figure}
+  \begin{figure}
+      \includegraphics[scale=0.05]{model_variance_quartic}
+      \includegraphics[scale=0.05]{model_variance_septic}
+  \end{figure}
+\end{frame}
+%
+%
+\begin{frame}
+  Near the boundries of the data the pointwise model varaince can be extremely
+  large, and dominate the signal:
+  \begin{figure}
+    \includegraphics[scale=0.08]{model_variance_septic}
+  \end{figure}
+\end{frame}
+%
+%
+\begin{frame}
+  A point derived from this discussion are expecially important.  The complexity
+  of a model should be a function of the \textbf{quantity} and \textbf{quality}
+  of the data available.
+  \begin{itemize}
+    \item \textbf{Quantity}: The variance is a function of the number of samples
+    available to train.
+    \item \textbf{Quality}: The variance is a function of the irreducible error rate.
+  \end{itemize}
+\end{frame}
+%
+%
+\begin{frame}
+  The complexity of a model specification should \textbf{not} be based on
+  supposed apriori knoledge of the complexity of the signal function, as
+  seductive as this impulse is.
 \end{frame}
