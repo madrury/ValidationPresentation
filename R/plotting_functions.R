@@ -32,3 +32,26 @@ plot_learning_curve_data <- function(degree, n_obs_in_train, alpha=1, test_data=
   )
   geom_line(data=plot_df, aes(x=n_training_points, y=avg_sum_of_squared_error, color=degree), alpha=alpha)
 }
+
+plot_learning_curve_degree <- function(degrees, alpha=1, test_data=NULL) {
+  if(is.null(test_data)) test_data <- sample_XY(n_samples=500)
+  out_of_sample_errors <- score_fit_models_of_varying_degree(
+    degrees=degrees, test_data, train_data=FALSE
+  )
+  in_sample_errors <- score_fit_models_of_varying_degree(
+    degrees=degrees, train_data=TRUE
+  )
+  plot_df_train <- data.frame(
+    polynomial_degree=as.numeric(names(in_sample_errors)),
+    avg_sum_of_squared_error=unlist(in_sample_errors),
+    type="In Sample"
+  )
+  plot_df_test<- data.frame(
+    polynomial_degree=as.numeric(names(out_of_sample_errors)),
+    avg_sum_of_squared_error=unlist(out_of_sample_errors),
+    type="Out Of Sample"
+  )
+  plot_df <- rbind(plot_df_train, plot_df_test)
+  #print(plot_df)
+  geom_line(data=plot_df, aes(x=polynomial_degree, y=avg_sum_of_squared_error, color=type, group=type), alpha=alpha)
+}

@@ -6,10 +6,11 @@ fit_many_sinmodels <- function(obj, n_to_fit) {
   models
 }
 
-fit_models_of_varying_degree <-function(obj, degrees) {
+fit_models_of_varying_degree <-function(degrees) {
   models <- list()
   for(d in degrees) {
-    models[[as.character(d)]] <- make_sinmodel(obj, degree=d)
+    model <- make_sinmodel(n_train_samples=50, degree=d)
+    models[[as.character(d)]] <- fit_many_sinmodels(model, 500)
   }
   models
 }
@@ -40,6 +41,17 @@ score_fit_models_on_varying_amounts_of_data <- function(degree, n_obs, data=NULL
   model_scores <- list()
   for(models in models_by_n_obs) {
     key <- as.character(length(models[[1]]$Y))
+    model_scores[[key]] <- .reduce_models_to_scores(models, data, train_data)
+  }
+  avg_model_scores <- lapply(model_scores, function(ms) {mean(unlist(ms))})
+  avg_model_scores
+}
+
+score_fit_models_of_varying_degree <- function(degrees, data=NULL, train_data=FALSE) {
+  models_by_degree <- fit_models_of_varying_degree(degrees)
+  model_scores <- list()
+  for(models in models_by_degree) {
+    key <- as.character(models[[1]]$degree)
     model_scores[[key]] <- .reduce_models_to_scores(models, data, train_data)
   }
   avg_model_scores <- lapply(model_scores, function(ms) {mean(unlist(ms))})
