@@ -136,7 +136,7 @@
 %
 \begin{frame}
    Lines fit to different data sampled from our model distribution tend to
-   cluser around the best linear fit, but there is a fair ammount of variance in
+   cluser around the best linear fit, but there is a fair amount of variance in
    the clustering:
   \begin{figure}
     \includegraphics[scale=0.09]{model_variance_standard_samples}
@@ -145,7 +145,7 @@
 %
 %
 \begin{frame}
-  Increasing the ammount of data used to fit reduces the varaince:
+  Increasing the amount of data used to fit reduces the varaince:
   \begin{figure}
     \includegraphics[scale=0.09]{model_variance_more_samples}
   \end{figure}
@@ -161,9 +161,19 @@
 %
 %
 \begin{frame}
-  Increasing the irreducible error rate also increases the model variance:
+  As the amount of data available for training is increased, estimates of
+  expected error tend to approach a limit after which they cannot be decreased:
   \begin{figure}
-    \includegraphics[scale=0.09]{model_variance_more_error}
+    \includegraphics[scale=0.09]{out_of_sample_learning_curve}
+  \end{figure}
+\end{frame}
+%
+%
+\begin{frame}
+  The error remaining after the estimate stabilizes are due to the other error
+  components: the irreduible error and the model bias.
+  \begin{figure}
+    \includegraphics[scale=0.09]{out_of_sample_learning_curve}
   \end{figure}
 \end{frame}
 %
@@ -192,7 +202,34 @@
 %
 %
 \begin{frame}
-  A point derived from this discussion are expecially important.  The complexity
+  Increaseing the complexity of the model can result in lower bias, and hence a
+  lower asymptotic error rate, but enough data is needed to overcome the
+  additional model variance:
+  \begin{figure}
+    \includegraphics[scale=0.09]{out_of_sample_learning_curves}
+  \end{figure}
+\end{frame}
+%
+%
+\begin{frame}
+  If the complexity is increased too much, the variance can dominate, causing
+  the expected error rate to increse
+  \begin{figure}
+    \includegraphics[scale=0.09]{learning_curve_by_degree}
+  \end{figure}
+\end{frame}
+%
+%
+\begin{frame}
+  Finally, increasing the irreducible error rate also increases the model variance:
+  \begin{figure}
+    \includegraphics[scale=0.09]{model_variance_more_error}
+  \end{figure}
+\end{frame}
+%
+%
+\begin{frame}
+  A point derived from this discussion is expecially important.  The complexity
   of a model should be a function of the \textbf{quantity} and \textbf{quality}
   of the data available.
   \begin{itemize}
@@ -202,9 +239,21 @@
   \end{itemize}
 \end{frame}
 %
-%
+%gt
 \begin{frame}
   The complexity of a model specification should \textbf{not} be based on
   supposed apriori knoledge of the complexity of the signal function, as
   seductive as this impulse is.
 \end{frame}
+%
+%
+\begin{frame}
+  This is demonstrated here:
+  \begin{figure}
+    \includegraphics[scale=0.09]{learning_curve_by_degree}
+  \end{figure}
+  No polynomial curve can capture the true signal completely, but an ideal fit
+  is closer the higher the degree.  None-the-less, the decrese in bias is
+  overcome by the decrease in varaince.
+\end{frame}
+
