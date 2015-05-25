@@ -88,6 +88,11 @@ p <- (ggplot() + plot_learning_curve_data(1, seq(10, 150, 5), train_data=TRUE)
 )
 ggsave("in_sample_learning_curves.png", width=7, height=6, p)
 
+p <- (ggplot() + plot_learning_curve_data(5, seq(10, 300, 5), train_data=TRUE)
+        + plot_learning_curve_data(5, seq(10, 300, 5))
+        + scale_y_continuous(limits=c(0, 1.25))
+)
+
 # Training vs. testing error for various degrees
 p <- ggplot() + plot_learning_curve_degree(1:8)
 ggsave("learning_curves_by_degree.png", width=7, height=6, p)
