@@ -20,3 +20,15 @@ plot_variance_of_degree <- function(d=1, n_train_sample=50, n_to_fit=100, y_std 
   p
 }
 
+plot_learning_curve_data <- function(degree, n_obs_in_train, alpha=1, test_data=NULL, train_data=FALSE) {
+  if(is.null(test_data)) test_data <- sample_XY(n_samples=500)
+  out_of_sample_errors <- score_fit_models_on_varying_amounts_of_data(
+    degree=degree, n_obs=n_obs_in_train, test_data, train_data
+  )
+  plot_df <- data.frame(
+    n_training_points=as.numeric(names(out_of_sample_errors)),
+    avg_sum_of_squared_error=unlist(out_of_sample_errors),
+    degree=degree
+  )
+  geom_line(data=plot_df, aes(x=n_training_points, y=avg_sum_of_squared_error, color=degree), alpha=alpha)
+}

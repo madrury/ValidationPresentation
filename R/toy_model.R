@@ -29,7 +29,7 @@ make_sinmodel <- function(
   new_model_obj$degree <- degree
 
   if(is.null(obj)) {
-    XY <- .sample_XY(n_samples=n_train_samples, y_std=y_std)
+    XY <- sample_XY(n_samples=n_train_samples, y_std=y_std)
     new_model_obj$X <- XY$X
     new_model_obj$Y <- XY$Y
   } else {
@@ -60,6 +60,15 @@ predict.sinmodel <- function(sinmodel, newdata=NULL) {
     preds <- predict(sinmodel$lm, newdata=preds_data_frame)
   }
   preds
+}
+
+sum_of_squared_errors <- function(sinmodel, newdata=NULL, newresponse=NULL) {
+  if(is.null(newdata)) {
+    newdata <- sinmodel$X
+    newresponse <- sinmodel$Y
+  }
+  preds <- predict(sinmodel, newdata=newdata)
+  sum( (preds - newresponse)^2 ) / length(newresponse)
 }
 
 #-----------------------------------------------------------------------------
@@ -161,7 +170,7 @@ calc_total_bias_cubic <- function() {
 }
 
 # Combine samples in data frame
-.sample_XY <- function(n_samples=10, y_std=.1) {
+sample_XY <- function(n_samples=10, y_std=.75) {
   X <- .sample_X(n_samples=n_samples)
   Y <- .sample_Y(X=X, y_std=y_std)
   data.frame(X=X, Y=Y)
