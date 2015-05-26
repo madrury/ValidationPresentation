@@ -59,7 +59,16 @@
 %
 %
 \begin{frame}
-  The fact is so important, it's worth putting some math behind it:
+  The effect is amplified in high model varaince situations (small data sets or
+  noisy data):
+  \begin{figure}
+    \includegraphics[scale=0.09]{in_and_out_of_sample_learning_curves}
+  \end{figure}
+\end{frame}
+%
+%
+\begin{frame}
+  The bias of the in sample error is so important, it's worth putting some math behind it:
   \begin{align*}
     \ESE &= E_{X,Y,\T} \left[ \left( Y - f(X; \T) \right)^2 \right] \\
          \only<2->{
@@ -162,11 +171,37 @@
   The cross validation estimate is of:
   $$\ESE = E_{X,Y,\D} \left[ \left( Y - f(X; D) \right)^2 \right]$$
 \end{frame}
+%
+%
+\begin{frame}
+  The number of folds to use is yet another example of balance and compromise in
+  statistical modeling.
+\end{frame}
+%
+%
+\begin{frame}
+  If a small $k$ is chosen, much data is held out from each training set,
+  depending on how much total data is available, this can increase the variance
+  of the estiamted model:
+  \begin{figure}
+    \includegraphics[scale=0.09]{out_of_sample_learning_curve}
+  \end{figure}
+\end{frame}
+%
+%
+\begin{frame}
+  At the other extreme, the $k = N$ case is called \textbf{leave one out cross
+  validation}.  In this case the models trainined on the complementary sets are
+  highly correllated, as the various training sets differ at only one point:
 
+  $$ f(x, \hat{{\T}}_i) \approx  f(x, \hat{{\T}}_j) $$
+\end{frame}
+%
+%
+\begin{frame}
+  This makes the cross validataion estimator relatively insensitive to model
+  varaince, as the training data is not sufficiently averaged out.
 
-
-
-
-
-
-
+  Said another way, if the cross validation estimate is repeated over varaious
+  \textit{full} training sets, \textit{this estimate} will have high varaince.
+\end{frame}
