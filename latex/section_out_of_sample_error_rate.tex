@@ -21,7 +21,7 @@
 %
 %
 \begin{frame}
-  We have already discussed the error when ranodmizing over both a training set
+  We have already discussed the error when randomizing over both a training set
   and an out of training sample, called the \textbf{expected out of sample
   error}:
 
@@ -41,7 +41,7 @@
 %
 %
 \begin{frame}
-  Also convienient is the \textbf{expected training error}, where the sample error is
+  Also convenient is the \textbf{expected training error}, where the sample error is
   computed on the same dataset used to train the model:
 
   $$\ETE = E_{\T} \left[ \frac{1}{N} \sum_{x,y \in \T} (y - f(x; \T))^2 \right] $$
@@ -50,8 +50,8 @@
 %
 \begin{frame}
   The expected training error is \textit{not} a good estimator of the expected
-  out of sample error, because the modeling algorithm incentivises fitting the
-  training data as closely as possilbe:
+  out of sample error, because the modeling algorithm incentives fitting the
+  training data as closely as possible:
   \begin{figure}
     \includegraphics[scale=0.09]{learning_curves_by_degree}
   \end{figure}
@@ -59,7 +59,7 @@
 %
 %
 \begin{frame}
-  The effect is amplified in high model varaince situations (small data sets or
+  The effect is amplified in high model variance situations (small data sets or
   noisy data):
   \begin{figure}
     \includegraphics[scale=0.09]{in_and_out_of_sample_learning_curves}
@@ -84,7 +84,7 @@
   \end{align*}
 
   \only<2>{
-    We can replace the expectation of distributuion with the expectation of its
+    We can replace the expectation of distribution with the expectation of its
     sample means.
   }
   \only<3>{
@@ -92,14 +92,14 @@
     possible $f$ when the sample error is evaluated on $\D$.
   }
   \only<4>{
-    Changing the name of a free varaible.
+    Changing the name of a free variable.
   } 
 \end{frame}
 %
 %
 \begin{frame}
-  Since the traning error is not a good estimate of the out of sample error, we
-  need an alternative way to get at this quantity.  There are two wo major
+  Since the training error is not a good estimate of the out of sample error, we
+  need an alternative way to get at this quantity.  There are two major
   approaches:
   \begin{itemize}
     \item Using a \textbf{hold out set}.
@@ -109,7 +109,7 @@
 %
 %
 \begin{frame}
-  If a dataset $\Holdout$ has participated in niether the training of the model, or
+  If a dataset $\Holdout$ has participated in neither the training of the model, or
   the decision making process, then:
 
   $$ \frac{1}{N} \sum_{x,y \in \Holdout} (y - f(x; \T))^2 $$
@@ -121,7 +121,7 @@
 %
 \begin{frame}
   Holding out data is \textit{not} costless, as there is less data available for
-  training and a smaller data set will increase the varaince of the estimated
+  training and a smaller data set will increase the variance of the estimated
   model:
   \begin{figure}
     \includegraphics[scale=0.08]{out_of_sample_learning_curve}
@@ -160,7 +160,7 @@
   The cross validation estimate of the out of sample error is:
    $$ \frac{1}{k} \sum_{i=1}^{k} \frac{1}{\# {\T}_i } \sum_{x,y \in
    {\T}_i} (y - f(x, \hat{{\T}}_i))^2$$ 
-   Since we are randomizing over a training set, this is actually an estiamte of
+   Since we are randomizing over a training set, this is actually an estimate of
    $\ESE$.
 \end{frame}
 %
@@ -182,7 +182,7 @@
 \begin{frame}
   If a small $k$ is chosen, much data is held out from each training set,
   depending on how much total data is available, this can increase the variance
-  of the estiamted model:
+  of the estimated model:
   \begin{figure}
     \includegraphics[scale=0.09]{out_of_sample_learning_curve}
   \end{figure}
@@ -191,17 +191,17 @@
 %
 \begin{frame}
   At the other extreme, the $k = N$ case is called \textbf{leave one out cross
-  validation}.  In this case the models trainined on the complementary sets are
-  highly correllated, as the various training sets differ at only one point:
+  validation}.  In this case the models trained on the complementary sets are
+  highly correlated, as the various training sets differ at only one point:
 
   $$ f(x, \hat{{\T}}_i) \approx  f(x, \hat{{\T}}_j) $$
 \end{frame}
 %
 %
 \begin{frame}
-  This makes the cross validataion estimator relatively insensitive to model
-  varaince, as the training data is not sufficiently averaged out.
+  This makes the cross validation estimator relatively insensitive to model
+  variance, as the training data is not sufficiently averaged out.
 
-  Said another way, if the cross validation estimate is repeated over varaious
-  \textit{full} training sets, \textit{this estimate} will have high varaince.
+  Said another way, if the cross validation estimate is repeated over various
+  \textit{full} training sets, \textit{this estimate} will have high variance.
 \end{frame}

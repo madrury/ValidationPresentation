@@ -2,7 +2,7 @@
 %
 %
 \begin{frame}
-  Although we never have full knowledge about $X, Y$, we often do have smaple
+  Although we never have full knowledge about $X, Y$, we often do have sample
   data drawn from this distribution:
 
   $$ \D = \left\{ (x_i, y_i) \mid x_i, y_i ~ X, Y \right\} $$
@@ -87,7 +87,7 @@
 %
 \begin{frame}
   The datasets $\D$ (of a fixed size) can be thought of as being drawn from
-  thier own distribution, the \textbf{sampling distribution} of $X$.   
+  their own distribution, the \textbf{sampling distribution} of $X$.   
 \end{frame}
 %
 %
@@ -131,7 +131,7 @@
            }
            + E_{\D} \left[ \left(Ef(x) - f(x,\D) \right)^2 \mid x \right] \\
     }
-      % Inside sqare term
+      % Inside square term
       \only<3-5> {
       & \quad + 2 E_{\D} \left[ 
           \textcolor<4>{orange}{ \left( \F(x) - Ef(x) \right) } 
@@ -144,7 +144,7 @@
   \only<3>{Square.}
   \only<4>{This factor has no dependence on $\D$, so it is a constant from
   the view of the enclosing expectation.}
-  \only<5>{This factor is zero in expecatation, so the cross term is zero.}
+  \only<5>{This factor is zero in expectation, so the cross term is zero.}
   \only<6>{This term has no dependence on $\D$, so we can remove the
   expectation.}
   \only<7>{This is the \textbf{bias-variance decomposition.}}
@@ -170,7 +170,7 @@
   }
   \only<2>{
     This is the \textbf{model variance}, which measures the variance of the
-    alogrithm's results around its average result.
+    algorithm's results around its average result.
   }
 \end{frame}
 %
@@ -236,5 +236,5 @@
 
   Discussions of this nature can often become confusing if you do not keep in
   mind whether the \textbf{overall} of \textbf{pointwise} error is being
-  considerd.  We will try to be explicit.
+  considered.  We will try to be explicit.
 \end{frame}

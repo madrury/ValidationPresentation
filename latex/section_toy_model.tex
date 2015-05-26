@@ -122,7 +122,7 @@
 %
 \begin{frame}
   It is tempting to want to lower the bias as much as possible, as this brings
-  our expected model close to reality, unfortunately, the model varaince is a
+  our expected model close to reality, unfortunately, the model variance is a
   price we pay.
 \end{frame}
 %
@@ -136,7 +136,7 @@
 %
 \begin{frame}
    Lines fit to different data sampled from our model distribution tend to
-   cluser around the best linear fit, but there is a fair amount of variance in
+   cluster around the best linear fit, but there is a fair amount of variance in
    the clustering:
   \begin{figure}
     \includegraphics[scale=0.09]{model_variance_standard_samples}
@@ -145,7 +145,7 @@
 %
 %
 \begin{frame}
-  Increasing the amount of data used to fit reduces the varaince:
+  Increasing the amount of data used to fit reduces the variance:
   \begin{figure}
     \includegraphics[scale=0.09]{model_variance_more_samples}
   \end{figure}
@@ -171,7 +171,7 @@
 %
 \begin{frame}
   The error remaining after the estimate stabilizes are due to the other error
-  components: the irreduible error and the model bias.
+  components: the irreducible error and the model bias.
   \begin{figure}
     \includegraphics[scale=0.09]{out_of_sample_learning_curve}
   \end{figure}
@@ -193,7 +193,7 @@
 %
 %
 \begin{frame}
-  Near the boundries of the data the pointwise model varaince can be extremely
+  Near the boundaries of the data the pointwise model variance can be extremely
   large, and dominate the signal:
   \begin{figure}
     \includegraphics[scale=0.08]{model_variance_septic}
@@ -202,7 +202,7 @@
 %
 %
 \begin{frame}
-  Increaseing the complexity of the model can result in lower bias, and hence a
+  Increasing the complexity of the model can result in lower bias, and hence a
   lower asymptotic error rate, but enough data is needed to overcome the
   additional model variance:
   \begin{figure}
@@ -213,7 +213,7 @@
 %
 \begin{frame}
   If the complexity is increased too much, the variance can dominate, causing
-  the expected error rate to increse
+  the expected error rate to increase
   \begin{figure}
     \includegraphics[scale=0.09]{learning_curve_by_degree}
   \end{figure}
@@ -229,7 +229,7 @@
 %
 %
 \begin{frame}
-  A point derived from this discussion is expecially important.  The complexity
+  A point derived from this discussion is especially important.  The complexity
   of a model should be a function of the \textbf{quantity} and \textbf{quality}
   of the data available.
   \begin{itemize}
@@ -242,7 +242,7 @@
 %gt
 \begin{frame}
   The complexity of a model specification should \textbf{not} be based on
-  supposed apriori knoledge of the complexity of the signal function, as
+  supposed apriori knowledge of the complexity of the signal function, as
   seductive as this impulse is.
 \end{frame}
 %
@@ -253,7 +253,7 @@
     \includegraphics[scale=0.09]{learning_curve_by_degree}
   \end{figure}
   No polynomial curve can capture the true signal completely, but an ideal fit
-  is closer the higher the degree.  None-the-less, the decrese in bias is
-  overcome by the decrease in varaince.
+  is closer the higher the degree.  None-the-less, the decrease in bias is
+  overcome by the decrease in variance.
 \end{frame}
 
