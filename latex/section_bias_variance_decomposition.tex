@@ -5,7 +5,7 @@
   Although we never have full knowledge about $X, Y$, we often do have sample
   data drawn from this distribution:
 
-  $$ \D = \left\{ (x_i, y_i) \mid x_i, y_i ~ X, Y \right\} $$
+  $$ \D = \left\{ (x_i, y_i) \mid x_i, y_i \sim X, Y \right\} $$
 \end{frame}
 %
 %
@@ -20,8 +20,8 @@
 %
 %
 \begin{frame}
-  A learning algorithms induces an extremely enlightening decomposition of the
-  expected squared error, This is called the \textbf{bias-variance}
+  A learning algorithm induces an extremely enlightening decomposition of the
+  expected squared error. This is called the \textbf{bias-variance}
   decomposition.
 \end{frame}
 %
@@ -231,7 +231,7 @@
 
   \begin{align*}
     \ESE(f) & = E_{X,Y} \left[ \left( y - f(x) \right)^2 \right] \\
-    &= E_X E_{Y \mid X} \left[ \left( y - f(x) \right)^2 \mid X \right]
+    &= E_X E_{Y \mid X} \left[ \left( y - f(x) \right)^2 \mid x \right]
   \end{align*}
 
   Discussions of this nature can often become confusing if you do not keep in

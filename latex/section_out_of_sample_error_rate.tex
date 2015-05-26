@@ -25,7 +25,7 @@
   and an out of training sample, called the \textbf{expected out of sample
   error}:
 
-  $$\ESE = E_{X,Y,\D} \left[ \left( Y - f(X; D) \right)^2 \right]$$
+  $$\ESE = E_{X,Y,\D} \left[ \left( y - f(x; \D) \right)^2 \right]$$
 
   It is this quantity that we were able to decompose with the
   \textbf{bias-varaince} decomposition.
@@ -36,7 +36,7 @@
   Possibly more relevant, is the error when randomizing over an out of training
   sample, but for a \textit{fixed} training set:
 
-  $$\ESE(\T) = E_{X,Y} \left[ \left( Y - f(X; \T) \right)^2 \right]$$
+  $$\ESE(\T) = E_{X,Y} \left[ \left( y - f(x; \T) \right)^2 \right]$$
 \end{frame}
 %
 %
@@ -70,7 +70,7 @@
 \begin{frame}
   The bias of the in sample error is so important, it's worth putting some math behind it:
   \begin{align*}
-    \ESE &= E_{X,Y,\T} \left[ \left( Y - f(X; \T) \right)^2 \right] \\
+    \ESE &= E_{X,Y,\T} \left[ \left( y - f(x; \T) \right)^2 \right] \\
          \only<2->{
            &= E_{\D, \T} \left[ \frac{1}{N} \sum_{x,y \in \D} (y - f(x; \T))^2
            \right] \\
@@ -167,9 +167,9 @@
 %
 \begin{frame}
   That is, while the hold out sample error is an estimate of:
-  $$\ESE(\T) = E_{X,Y} \left[ \left( Y - f(X; \T) \right)^2 \right]$$
+  $$\ESE(\T) = E_{X,Y} \left[ \left( y - f(x; \T) \right)^2 \right]$$
   The cross validation estimate is of:
-  $$\ESE = E_{X,Y,\D} \left[ \left( Y - f(X; D) \right)^2 \right]$$
+  $$\ESE = E_{X,Y,\D} \left[ \left( y - f(x; D) \right)^2 \right]$$
 \end{frame}
 %
 %

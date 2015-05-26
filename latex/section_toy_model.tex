@@ -28,7 +28,7 @@
   \end{figure}
 
   Clearly, the regression function $E(Y \mid X)$ is given by:
-  $$ \F(X) = E[ \sin(X) + N(0, \epsilon) \mid X ] = \sin(X) $$
+  $$ \F(X) = E[ \sin(x) + N(0, \epsilon) \mid x ] = \sin(x) $$
 \end{frame}
 %
 %
@@ -38,7 +38,7 @@
 
   \begin{align*}
       \IESE(x) &= E_Y \left[ \left( y - \F(x) \right)^2 \mid x \right] \\
-      &= E_Y \left[ \left( \sin(X) + N(0, \epsilon) - \sin(X) \right)^2 \right] \\
+      &= E_Y \left[ \left( \sin(x) + N(0, \epsilon) - \sin(x) \right)^2 \right] \\
       &= E_Y \left[ N(0, \epsilon)^2 \right] \\
       &= \epsilon
   \end{align*}
@@ -71,7 +71,6 @@
 \begin{frame}
   For our toy situation we can calculate $Ef$ numerically (I used scipy):
   $$ Ef(x) \approx -0.304 x +  0.955 $$
-  The details of this computation are included in an appendix.
 \end{frame}
 %
 %
@@ -254,6 +253,6 @@
   \end{figure}
   No polynomial curve can capture the true signal completely, but an ideal fit
   is closer the higher the degree.  None-the-less, the decrease in bias is
-  overcome by the decrease in variance.
+  overcome by the increase in variance.
 \end{frame}
 
